@@ -1,8 +1,9 @@
 #![allow(unused)]
 
 fn main() {
-    let input = include_str!("./input1.txt");
+    let input = include_str!("../input");
     let output = part1(input);
+    println!("{:?}", &input);
     dbg!(output);
 }
 
