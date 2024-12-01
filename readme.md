@@ -1,5 +1,5 @@
 # Advent of Code 2024
-Dealing with little rust I remember from last year by struggling through more problems.
+Dealing with how little rust I remember from last year by struggling through more problems this year.
 
 ## Handy Links
 [Advent of code 2024](https://adventofcode.com/2024)
