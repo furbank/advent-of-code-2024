@@ -1,5 +1,4 @@
-#![allow(unused)]
-use std::{iter::zip, str::FromStr};
+use std::str::FromStr;
 
 fn main() {
     let input = include_str!("../input");
@@ -20,14 +19,8 @@ fn part1(input: &str) -> u32 {
         right_list.push(row[1]);
     }
 
-    left_list.sort();
-    right_list.sort();
-    let total: u32 = zip(left_list, right_list).map(|(l,r)| dist(l, r)).sum();
+    for l in left_list{
+        total += (TryInto::<u32>::try_into(right_list.iter().filter(|&n| *n == l).count())).unwrap() * l;
+    }
     total
-}
-
-fn dist(a: u32, b:u32) ->u32{
-    if a == b {0}
-    else if a > b { a - b }
-    else {b - a}
 }
