@@ -3,11 +3,19 @@
 fn main() {
     let input = include_str!("../input");
     let output = part1(input);
-    println!("{:?}", &input);
     dbg!(output);
+
+// Rules
+// The levels are either all increasing or all decreasing.
+// Any two adjacent levels differ by at least one and at most three.
+
 }
 
-fn part1(_input:&str) -> String {
+fn part1(input:&str) -> String {
+    let lines: Vec<String> = input.lines().map(String::from).collect();
+    for line in &lines {
+        println!("{:?}", line);
+    }
     "todo!()".to_string()
 }
 
