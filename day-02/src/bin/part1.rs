@@ -1,38 +1,58 @@
-#![allow(unused)]
 use std::str::FromStr;
+use std::iter::zip;
 
 fn main() {
     let input = include_str!("../input");
     let output = part1(input);
     dbg!(output);
-
-// Rules
-// The levels are either all increasing or all decreasing.
-// Any two adjacent levels differ by at least one and at most three.
-
 }
 
 fn part1(input:&str) -> String {
 
-    let rows: Vec<Vec<u32>> = input.lines()
+    let mut total_safe: u32 = 0;
+
+    let rows: Vec<Vec<i32>> = input.lines()
         .map(|l: &str| l.split_whitespace()
-            .filter_map(|n| (u32::from_str(n).ok()))
-            .collect::<Vec<u32>>())
+            .filter_map(|n| (i32::from_str(n).ok()))
+            .collect::<Vec<i32>>())
         .collect();
 
-    println!("{:?}", rows);
+    for report in rows {
+        if is_safe(&report){total_safe += 1}
+    }
 
-    "todo!()".to_string()
+    total_safe.to_string()
 }
 
-#[cfg(test)]
-mod tests {
-    //use crate::part1;
-    use super::*;
+fn is_safe(report:&Vec<i32>) -> bool {
+    // Rules
+    // The levels are either all increasing or all decreasing.
+    // Any two adjacent levels differ by at least one and at most three.
+    let level_diffs: Vec<i32> = find_diffs(&report);
 
-    #[test]
-    fn test_part1() {
-        let result = part1("");
-        assert_eq!(result, "4".to_string());
+    for change in &level_diffs {
+        match &level_diffs[0] {
+            1..=3 => {
+                match change {
+                    1..=3 => {},
+                    _ => return false
+                    }
+            },
+            -3..=-1 => {
+                match change {
+                    -3..=-1 => {},
+                    _ => return false
+                    }
+            },
+            _ => return false
+        }
     }
+    true
+}
+
+fn find_diffs(report: &Vec<i32>) -> Vec<i32> {
+    zip( &report[..report.len()-1], &report[1..])
+        .into_iter()
+        .map(|(a,b)| (a - b))
+        .collect::<Vec<i32>>()
 }
