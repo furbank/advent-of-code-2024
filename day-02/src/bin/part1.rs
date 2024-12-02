@@ -1,4 +1,5 @@
 #![allow(unused)]
+use std::str::FromStr;
 
 fn main() {
     let input = include_str!("../input");
@@ -12,10 +13,15 @@ fn main() {
 }
 
 fn part1(input:&str) -> String {
-    let lines: Vec<String> = input.lines().map(String::from).collect();
-    for line in &lines {
-        println!("{:?}", line);
-    }
+
+    let rows: Vec<Vec<u32>> = input.lines()
+        .map(|l: &str| l.split_whitespace()
+            .filter_map(|n| (u32::from_str(n).ok()))
+            .collect::<Vec<u32>>())
+        .collect();
+
+    println!("{:?}", rows);
+
     "todo!()".to_string()
 }
 
