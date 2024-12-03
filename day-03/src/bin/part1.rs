@@ -1,24 +1,19 @@
 #![allow(unused)]
+use regex::Regex;
 
 fn main() {
     let input = include_str!("../input");
-    let output = part1(input);
-    println!("{:?}", &input);
-    dbg!(output);
+    dbg!(part1(input));
 }
 
-fn part1(_input:&str) -> String {
-    "todo!()".to_string()
-}
+fn part1(input:&str) -> u32 {
+    let regex = Regex::new(r"(?m)mul\((?<a>[0-9]{1,3}),(?<b>[0-9]{1,3})\)").unwrap();
 
-#[cfg(test)]
-mod tests {
-    //use crate::part1;
-    use super::*;
+    let result: Vec<(u32, u32)> = regex.captures_iter(input).map(|c| {
+        let a: u32 = c.name("a").unwrap().as_str().parse::<u32>().ok().unwrap();
+        let b: u32 = c.name("b").unwrap().as_str().parse::<u32>().ok().unwrap();
+        (a,b)
+    }).collect();
 
-    #[test]
-    fn test_part1() {
-        let result = part1("");
-        assert_eq!(result, "4".to_string());
-    }
+    result.into_iter().map(|(a, b)| a*b).sum::<u32>()
 }
