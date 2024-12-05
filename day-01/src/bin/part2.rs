@@ -13,14 +13,26 @@ fn part1(input: &str) -> u32 {
 
     let lines: Vec<String> = input.lines().map(String::from).collect();
     for line in &lines {
-        let row: Vec<u32>= line.split_whitespace().take(2).filter_map(|number| u32::from_str(number).ok()).collect();
+        let row: Vec<u32> = line
+            .split_whitespace()
+            .take(2)
+            .filter_map(|number| u32::from_str(number).ok())
+            .collect();
 
         left_list.push(row[0]);
         right_list.push(row[1]);
     }
 
-    for l in left_list{
-        total += (TryInto::<u32>::try_into(right_list.iter().filter(|&n| *n == l).count())).unwrap() * l;
+    for l in left_list {
+        total +=
+            TryInto::<u32>
+                ::try_into(
+                    right_list
+                        .iter()
+                        .filter(|&n| *n == l)
+                        .count()
+                )
+                .unwrap() * l;
     }
     total
 }

@@ -9,21 +9,25 @@ fn main() {
     dbg!(output);
 }
 
-fn part2(input:&str, match_word: &str) -> String {
+fn part2(input: &str, match_word: &str) -> String {
     let mut total: u32 = 0;
-    let lines: Vec<Vec<char>> = input.lines().map(|l| l.chars().collect::<Vec<char>>()).collect();
+    let lines: Vec<Vec<char>> = input
+        .lines()
+        .map(|l| l.chars().collect::<Vec<char>>())
+        .collect();
 
     let max_x: usize = lines[0].len();
     let max_y: usize = lines.len();
 
-    for y in 1..max_y-1 {
-        for x in 1..max_x-1 {
-            if lines[y][x] == 'A'
-            {
-                if lines[y-1][x-1] as u8 + lines[y+1][x+1] as u8 == 160
-                && lines[y-1][x+1] as u8 + lines[y+1][x-1] as u8 == 160 {
+    for y in 1..max_y - 1 {
+        for x in 1..max_x - 1 {
+            if lines[y][x] == 'A' {
+                if
+                    (lines[y - 1][x - 1] as u8) + (lines[y + 1][x + 1] as u8) == 160 &&
+                    (lines[y - 1][x + 1] as u8) + (lines[y + 1][x - 1] as u8) == 160
+                {
                     total += 1;
-               }
+                }
             }
         }
     }
